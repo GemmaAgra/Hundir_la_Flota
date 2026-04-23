@@ -20,7 +20,7 @@ def disparar(casilla, tablero):
 
 def crear_barco(eslora, tamano_tablero=10):      # crea un barco q exista dentro del tablero   
     while True:                                  # bucle infinito de intentos hasta q el barco encuentre un lugar VL 
-        orientacion = random.choice(['H', 'V'])        # genera orient. y coords aleatorias. de 0 a 9 (tamaño 10)
+        orientacion = random.choice(['H', 'V'])           # genera orient. y coords aleatorias. de 0 a 9 (tamaño 10)
         fila = random.randint(0, tamano_tablero - 1)  
         col  = random.randint(0, tamano_tablero - 1)
         
@@ -51,7 +51,7 @@ def colocar_barcos_aleatorios(tablero, barcos_config):
             if all(tablero_temp[c] == "-" for c in propuestaCasillas): # VL q no haya otro barco superpuesto en c (f-col)
                 colocar_barco(propuestaCasillas, tablero_temp)  # Si hueco libre pongo "O" y sale del while para pasar al
                 colocado = True                     #  sgte barco. Si hay otro barco (O) rechaza la propuesta y pide otra
-    return tablero_temp                                     
+    return tablero_temp           
 """ 
 all(...): es el "detector de colisiones", VF q todas las casillas q necesita el nuevo barco tengan agua (-)
 Si 1 tiene una "O" hay colisión y el if falla
