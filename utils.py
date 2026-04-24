@@ -18,7 +18,7 @@ def disparar(casilla, tablero):
     return "Ya disparaste aquí"
 
 
-def crear_barco(eslora, tamano_tablero=10):      # crea un barco q exista dentro del tablero   
+def crear_barco(eslora, tamano_tablero=10):      # crea un barco dentro del tablero   
     while True:                                  # bucle infinito de intentos hasta q el barco encuentre un lugar VL 
         orientacion = random.choice(['H', 'V'])           # genera orient. y coords aleatorias. de 0 a 9 (tamaño 10)
         fila = random.randint(0, tamano_tablero - 1)  
@@ -29,7 +29,7 @@ def crear_barco(eslora, tamano_tablero=10):      # crea un barco q exista dentro
             if orientacion == 'H': casillas.append((fila, col + i))
             else:                  casillas.append((fila + i, col))
         
-        # VL q el barco no se salga del tablero, volvería a intentarlo hasta q el diseño sea VL
+        # VL q el barco no se salga del tablero, sino volvería a intentarlo hasta q el diseño sea VL
         if all(0 <= r < tamano_tablero and 0 <= c < tamano_tablero for r, c in casillas):
             return casillas  
         """
@@ -66,7 +66,7 @@ all(...):                   devuelve True si todas las casillas de la lista cump
 
 característica	crear_barco	                                    colocar_barcos_aleatorios
 Misión	        Crear coords de un barco                    	Gestionar la colocación de toda la flota
-VL      	    Q no se salga del tablero (Bordes)           	Q no choque con otros barcos (Colisiones)
+VL      	    Q no se salga del tablero                   	Q no choque con otros barcos
 Rdo     	    Devuelve 1 lista de tuplas [(0,1), (0,2)]   	Devuelve el tablero terminado
 
 """

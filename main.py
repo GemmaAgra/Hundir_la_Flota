@@ -11,7 +11,7 @@ class JuegoHundirFlota:
         self.radar_jugador   = utils.crear_tablero(self.tamano)   # Visibilidad para el jugador (tablero donde dispara)
         self.radar_rival     = utils.crear_tablero(self.tamano)   # Visibilidad para el rival (tablero donde dispara)
       
-    def preparar_juego(self):                                     # pinto los barcos del jugador y máquina en el tablero
+    def preparar_juego(self):                                     # creo los barcos del jugador y máquina en el tablero
         self.tablero_maquina = utils.colocar_barcos_aleatorios(self.tablero_maquina, self.config_barcos)
         self.tablero_jugador = utils.colocar_barcos_aleatorios(self.tablero_jugador, self.config_barcos)
        
@@ -43,6 +43,7 @@ class JuegoHundirFlota:
 
             # TURNO MÁQUINA      
             # Antes de q la máquina dispare, VF si a la casilla elegida le quedan barcos 'O' para q no dispare si he ganado
+            # pq lo compruebo abajo con el if
             if "O" in self.tablero_maquina:   
                 print("\n--- TURNO DE LA MÁQUINA --- \n")
                 ataco = False
@@ -54,18 +55,19 @@ class JuegoHundirFlota:
 
                     # La máquina comprueba en su radar para no repetir disparo
                     if self.radar_rival[f_m, c_m] == "-":                      
-                        rdo_m= utils.disparar((f_m, c_m), self.tablero_jugador)# Si la máquina acierta, en mi tablero veo 1"X" y si falla 1"A"
-                        self.radar_rival[f_m, c_m] = self.tablero_jugador[f_m, c_m]    # F5 su tablero radar con el rdo
+                        rdo_m= utils.disparar((f_m, c_m), self.tablero_jugador)# Si la máquina acierta en mi tablero veo "X" y si falla "A"
                         print(f"La máquina disparó a ({f_m}, {c_m})\n {rdo_m}")
+                        self.radar_rival[f_m, c_m] = self.tablero_jugador[f_m, c_m]    # F5 su tablero radar con el rdo
                         ataco = True  # sale bucle pq el disparo es VL              
 
-                print("\n Limpiando pantalla en 5 seg...")         # Espero 5" y limpio pantalla para mostrar tablero F5
-                time.sleep(5) # Pausa de 5" para ver el disparo de la máquina              
-                os.system('cls' if os.name == 'nt' else 'clear')       # limpio pantalla
+                print("\n Limpiando pantalla en 5 seg...")         
+                time.sleep(5)                                      # Pausa de 5" para ver el disparo de la máquina              
+                os.system('cls' if os.name == 'nt' else 'clear')   # limpio pantalla
 
         if "O" not in self.tablero_maquina:
             print("¡HAS GANADO! Todos los barcos hundidos !!!!!! \n")   
-        else: print("OHHH... La máquina ha ganado... \n")
+        elif "O" not in self.tablero_jugador:
+            print("OHHH... La máquina ha ganado... \n")
 
 if __name__ == "__main__":          # ejecuta el if si el archivo main se abre (ejecuto en terminal "python main.py")
     partida = JuegoHundirFlota()    # arrancar prog. creando un objeto de mi clase
